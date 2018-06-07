@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from __future__ import print_function
-from contracts import contract
+from contracts import contract, new_contract
 
 import argparse
 import os
@@ -44,9 +44,12 @@ def subprocess_check_output(command):
     return subprocess.check_output(command.strip().split(' '))
 
 
+new_contract('valid_string', lambda s: isinstance(s, str) and len(s) > 0)
+
+
 @contract(
     blocks='int,>0',
-    returns='str'
+    returns='(valid_string, str)'
 )
 def bytes_to_readable(blocks):
     byts = blocks * 512
@@ -60,6 +63,9 @@ def bytes_to_readable(blocks):
     return '{:.2f}{}'.format(round(byts/(1024.0**count), 2), labels[count])
 
 
+# @contract(
+#     file_tree=''
+# )
 def print_tree(file_tree, file_tree_node, path, largest_size, total_size,
                depth=0):
     percentage = int(file_tree_node['size'] / float(total_size) * 100)

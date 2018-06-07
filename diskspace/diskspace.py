@@ -63,9 +63,20 @@ def bytes_to_readable(blocks):
     return '{:.2f}{}'.format(round(byts/(1024.0**count), 2), labels[count])
 
 
-# @contract(
-#     file_tree=''
-# )
+new_contract('valid_file_tree_node',
+             lambda tree: isinstance(tree, dict) and
+             str(tree['size']).isdigit() and
+             'print_size' in tree)
+
+
+@contract(
+    file_tree='dict',
+    file_tree_node='(valid_file_tree_node, dict)',
+    path='(valid_string, str)',
+    largest_size='int,>=0',
+    total_size='int,>0',
+    depth='int'
+)
 def print_tree(file_tree, file_tree_node, path, largest_size, total_size,
                depth=0):
     percentage = int(file_tree_node['size'] / float(total_size) * 100)

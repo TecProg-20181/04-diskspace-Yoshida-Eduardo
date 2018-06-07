@@ -97,6 +97,11 @@ def print_tree(file_tree, file_tree_node, path, largest_size, total_size,
                        total_size, depth + 1)
 
 
+@contract(
+    directory='str',
+    depth='int',
+    order='bool'
+)
 def show_space_list(directory='.', depth=-1, order=True):
     abs_directory = os.path.abspath(directory)
 
@@ -170,6 +175,7 @@ def main():
                         order=(args.order == 'desc'))
     else:
         show_space_list(args.directory, order=(args.order == 'desc'))
+
 
 if __name__ == '__main__':
     main()

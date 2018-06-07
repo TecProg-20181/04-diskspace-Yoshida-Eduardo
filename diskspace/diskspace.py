@@ -36,15 +36,15 @@ args = parser.parse_args()
 
 
 # ==== Disk Space ====
+new_contract('valid_string', lambda s: isinstance(s, str) and len(s) > 0)
+
+
 @contract(
-    command='str',
-    returns='str'
+    command='(valid_string, str)',
+    returns='(valid_string, str)'
 )
 def subprocess_check_output(command):
     return subprocess.check_output(command.strip().split(' '))
-
-
-new_contract('valid_string', lambda s: isinstance(s, str) and len(s) > 0)
 
 
 @contract(

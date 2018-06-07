@@ -75,7 +75,8 @@ new_contract('valid_file_tree_node',
     path='(valid_string, str)',
     largest_size='int,>=0',
     total_size='int,>0',
-    depth='int'
+    depth='int',
+    returns='None'
 )
 def print_tree(file_tree, file_tree_node, path, largest_size, total_size,
                depth=0):
@@ -100,7 +101,8 @@ def print_tree(file_tree, file_tree_node, path, largest_size, total_size,
 @contract(
     directory='str',
     depth='int',
-    order='bool'
+    order='bool',
+    returns='None'
 )
 def show_space_list(directory='.', depth=-1, order=True):
     abs_directory = os.path.abspath(directory)
